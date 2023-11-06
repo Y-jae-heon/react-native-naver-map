@@ -2,7 +2,7 @@ package com.github.quadflask.react.navermap;
 
 import android.graphics.Rect;
 import android.view.View;
-import android.util.log;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
