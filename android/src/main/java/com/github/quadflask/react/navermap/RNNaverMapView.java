@@ -4,6 +4,7 @@ import android.graphics.PointF;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -29,6 +30,7 @@ public class RNNaverMapView extends MapView implements OnMapReadyCallback, Naver
     private ThemedReactContext themedReactContext;
     private FusedLocationSource locationSource;
     private NaverMap naverMap;
+    private NaverMapSdk naverMapSdk;
     private ViewAttacherGroup attacherGroup;
     private long lastTouch = 0;
     private final List<RNNaverMapFeature<?>> features = new ArrayList<>();
@@ -36,8 +38,10 @@ public class RNNaverMapView extends MapView implements OnMapReadyCallback, Naver
     public RNNaverMapView(@NonNull ThemedReactContext themedReactContext, ReactApplicationContext appContext, FusedLocationSource locationSource, NaverMapOptions naverMapOptions, Bundle instanceStateBundle) {
         super(ReactUtil.getNonBuggyContext(themedReactContext, appContext), naverMapOptions);
         this.themedReactContext = themedReactContext;
-        this.locationSource = locationSource;
+        // this.locationSource = locationSource;
+        this.locationSource = new FusedLocationSource(appContext.getCurrentActivity(), LOCATION_PERMISSION_REQUEST_CODE);
         super.onCreate(instanceStateBundle);
+        naverMapSdk = NaverMapSdk.getInstance(appContext);
 //        super.onStart();
         getMapAsync(this);
 
